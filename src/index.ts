@@ -11,6 +11,7 @@ type FunctionType =
   | t.FunctionDeclaration
   | t.FunctionExpression
   | t.ArrowFunctionExpression
+  | t.ClassMethod
 
 function nameForReactComponent(
   path: NodePath<FunctionType>
@@ -20,9 +21,15 @@ function nameForReactComponent(
   if (!t.isArrowFunctionExpression(path.node) && t.isIdentifier(path.node.id)) {
     return path.node.id
   }
+
   if (t.isVariableDeclarator(parentPath)) {
     // @ts-ignore
     return parentPath.node.id
+  }
+
+  if (t.isClassMethod(path.node)) {
+    // @ts-ignore
+    return parentPath.parentPath?.node.id;
   }
 
   return null
@@ -38,17 +45,18 @@ export default function plugin({
   types: t,
 }: typeof babel): PluginObj<IState> {
   return {
-    name: 'babel-plugin-react-add-data-attribute',
+    name: 'babel-plugin-react-gen-unique-id',
     visitor: {
       Function(programPath, state) {
         const propertyName = state.opts?.propertyName
           ? state.opts.propertyName
-          : 'data-test'
+          : 'data-spm'
         const dirLevel = state.opts?.dirLevel ? state.opts.dirLevel : 1
 
         const identifier = nameForReactComponent(
           (programPath as unknown) as NodePath<FunctionType>
         )
+
         if (!identifier) {
           return
         }
@@ -65,8 +73,7 @@ export default function plugin({
         const dirNames = splits.slice(-1 - dirLevel, -1)
 
         const fileName = splits[splits.length - 1].split('.')[0]
-        const fileIdentifier = `${dirNames.join('_')}_${fileName}_${identifier.name
-          }`
+        const fileIdentifier = `${dirNames.join('_')}_${fileName}_${identifier.name}`
 
         const prevLiterals: { [key: string]: number } = {}
         programPath.traverse({
@@ -109,8 +116,7 @@ export default function plugin({
                 t.jsxAttribute(
                   t.jsxIdentifier(propertyName),
                   t.stringLiteral(
-                    `${fileIdentifier}_${nodeName}${siblingIter > 0 ? '_' + siblingIter : ''
-                    }`
+                    `${fileIdentifier}_${nodeName}${siblingIter > 0 ? '_' + siblingIter : ''}`
                   )
                 )
               )

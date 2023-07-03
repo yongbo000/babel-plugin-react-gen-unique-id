@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`babel-plugin-react-auto-unique-id Arrow Function Component: Arrow Function Component 1`] = `
+
+const Div2 = () => <div />
+
+const DivBody = () => {
+  return <div />
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const Div2 = () => <div data-spm="__fixtures___arrowFunction_Div2_div" />
+const DivBody = () => {
+  return <div data-spm="__fixtures___arrowFunction_DivBody_div" />
+}
+
+
+`;
+
+exports[`babel-plugin-react-auto-unique-id Class Component: Class Component 1`] = `
+
+class ComA extends React.Component {
+  render() {
+    return <div>CCCCC</div>
+  }
+}
+
+const DivBody = () => {
+  return <div>
+    <ComA />
+    <div>hello</div>
+  </div>
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+class ComA extends React.Component {
+  render() {
+    return <div data-spm="__fixtures___classComponent_ComA_div">CCCCC</div>
+  }
+}
+const DivBody = () => {
+  return (
+    <div data-spm="__fixtures___classComponent_DivBody_div">
+      <ComA data-spm="__fixtures___classComponent_DivBody_ComA" />
+      <div data-spm="__fixtures___classComponent_DivBody_div_1">hello</div>
+    </div>
+  )
+}
+
+
+`;
+
+exports[`babel-plugin-react-auto-unique-id Functional Component: Functional Component 1`] = `
+
+function Div() {
+  return <div />
+}
+
+function Nested() {
+  return (
+    <div>
+      hello
+      <A />
+      <div>world</div>
+    </div>
+  )
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+function Div() {
+  return <div data-spm="__fixtures___functionComponent_Div_div" />
+}
+function Nested() {
+  return (
+    <div data-spm="__fixtures___functionComponent_Nested_div">
+      hello
+      <A data-spm="__fixtures___functionComponent_Nested_A" />
+      <div data-spm="__fixtures___functionComponent_Nested_div_1">world</div>
+    </div>
+  )
+}
+
+
+`;
+
+exports[`babel-plugin-react-auto-unique-id Property exists: Property exists 1`] = `
+
+function Sibling() {
+  return <div />
+}
+
+function Siblings() {
+  return (
+    <div>
+      hello
+      <Sibling data-id="i-exist"/>
+      <Sibling/>
+    </div>
+  )
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+function Sibling() {
+  return <div data-spm="__fixtures___propertyExists_Sibling_div" />
+}
+function Siblings() {
+  return (
+    <div data-spm="__fixtures___propertyExists_Siblings_div">
+      hello
+      <Sibling
+        data-id="i-exist"
+        data-spm="__fixtures___propertyExists_Siblings_Sibling"
+      />
+      <Sibling data-spm="__fixtures___propertyExists_Siblings_Sibling_1" />
+    </div>
+  )
+}
+
+
+`;
+
+exports[`babel-plugin-react-auto-unique-id Same Siblings: Same Siblings 1`] = `
+
+function Sibling() {
+  return <div />
+}
+
+function Siblings() {
+  return (
+    <div>
+      hello
+      <Sibling/>
+      <Sibling/>
+    </div>
+  )
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+function Sibling() {
+  return <div data-spm="__fixtures___sameSiblings_Sibling_div" />
+}
+function Siblings() {
+  return (
+    <div data-spm="__fixtures___sameSiblings_Siblings_div">
+      hello
+      <Sibling data-spm="__fixtures___sameSiblings_Siblings_Sibling" />
+      <Sibling data-spm="__fixtures___sameSiblings_Siblings_Sibling_1" />
+    </div>
+  )
+}
+
+
+`;

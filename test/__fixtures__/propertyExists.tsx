@@ -6,7 +6,7 @@ function Siblings() {
   return (
     <div>
       hello
-      <Sibling data-test="i-exist"/>
+      <Sibling data-id="i-exist"/>
       <Sibling/>
     </div>
   )

@@ -1,13 +1,13 @@
 {
-  "name": "babel-plugin-react-add-data-attribute",
-  "version": "1.1.0",
-  "description": "babel plugin to add data-test attribute to react components",
+  "name": "babel-plugin-react-gen-unique-id",
+  "version": "1.0.1",
+  "description": "babel plugin to add data-id attribute to react components",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davidgustys/babel-plugin-react-add-data-attribute.git"
+    "url": "git@github.com:yongbo000/babel-plugin-react-gen-unique-id.git"
   },
-  "author": "David Gustys <hello@davidgustys.com> (https://davidgustys.com)",
+  "author": "yongbo.hello@gmail.com",
   "files": [
     "dest"
   ],
@@ -17,7 +17,7 @@
     "babel",
     "babel plugin",
     "react",
-    "data-test",
+    "data-id",
     "styled-components",
     "components"
   ],
@@ -27,7 +27,6 @@
   "scripts": {
     "prebuild": "del dest",
     "build": "tsc",
-    "prepublish": "npm build && del dest/**/*.test.*",
     "fmt": "prettier --write .",
     "lint": "eslint src/**/*.ts",
     "test": "jest",
@@ -63,8 +62,5 @@
     "ts-jest": "^26.4.4",
     "typescript": "^4.1.2"
   },
-  "bugs": {
-    "url": "https://github.com/davidgustys/babel-plugin-react-add-data-attribute/issues"
-  },
-  "homepage": "https://github.com/davidgustys/babel-plugin-react-add-data-attribute#readme"
+  "homepage": "https://github.com/yongbo000/babel-plugin-react-gen-unique-id"
 }
