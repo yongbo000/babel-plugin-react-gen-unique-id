@@ -1,5 +1,10 @@
+import ComA from './components/ComA';
+
 const Div2 = () => <div />
 
 const DivBody = () => {
-  return <div />
+  return <div>
+    <p>hello</p>
+    <ComA />
+  </div>
 }

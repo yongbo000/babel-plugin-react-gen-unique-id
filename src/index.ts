@@ -1,5 +1,8 @@
 import babel, { NodePath, PluginObj } from '@babel/core'
 import * as t from 'babel-types'
+import path from 'path'
+
+const slashChar = path.sep
 
 interface IPluginOptions {
   propertyName?: string
@@ -22,12 +25,14 @@ function nameForReactComponent(
     return path.node.id
   }
 
-  if (t.isVariableDeclarator(parentPath)) {
+  // @ts-ignore
+  if (t.isVariableDeclarator(parentPath) && t.isIdentifier(parentPath.node.id)) {
     // @ts-ignore
     return parentPath.node.id
   }
 
-  if (t.isClassMethod(path.node)) {
+  // @ts-ignore
+  if (t.isClassMethod(path.node) && t.isIdentifier(parentPath.parentPath?.node.id)) {
     // @ts-ignore
     return parentPath.parentPath?.node.id;
   }
@@ -35,10 +40,14 @@ function nameForReactComponent(
   return null
 }
 
+interface File extends t.File {
+  opts: any
+}
+
 interface IState {
   opts?: Partial<IPluginOptions>
   filename: string
-  file: t.File
+  file: File
 }
 
 export default function plugin({
@@ -51,7 +60,7 @@ export default function plugin({
         const propertyName = state.opts?.propertyName
           ? state.opts.propertyName
           : 'data-spm'
-        const dirLevel = state.opts?.dirLevel ? state.opts.dirLevel : 1
+        // const dirLevel = state.opts?.dirLevel ? state.opts.dirLevel : 1
 
         const identifier = nameForReactComponent(
           (programPath as unknown) as NodePath<FunctionType>
@@ -60,20 +69,18 @@ export default function plugin({
         if (!identifier) {
           return
         }
-
-        const slashChar = '/'
+        
         const splits = state.filename.split(slashChar)
         if (!splits || !splits.length) {
-          console.error(
-            'babel-plugin-add-react-test-attribute plugin error: File path is not valid.'
-          )
           return
         }
 
-        const dirNames = splits.slice(-1 - dirLevel, -1)
-
-        const fileName = splits[splits.length - 1].split('.')[0]
-        const fileIdentifier = `${dirNames.join('_')}_${fileName}_${identifier.name}`
+        // const dirNames = splits.slice(-1 - dirLevel, -1)
+        // const absoluteFilePath = state.filename;
+        // const fileName = path.basename(absoluteFilePath).split('.')[0]; // splits[splits.length - 1].split('.')[0]
+        const rootDir = state.file.opts.root
+        const relativePathSplits = state.filename.replace(rootDir, '').split('.')[0].split(slashChar)
+        const fileIdentifier = `${relativePathSplits.join('_')}_${identifier.name}`
 
         const prevLiterals: { [key: string]: number } = {}
         programPath.traverse({

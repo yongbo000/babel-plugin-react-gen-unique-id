@@ -2,17 +2,28 @@
 
 exports[`babel-plugin-react-auto-unique-id Arrow Function Component: Arrow Function Component 1`] = `
 
+import ComA from './components/ComA';
+
 const Div2 = () => <div />
 
 const DivBody = () => {
-  return <div />
+  return <div>
+    <p>hello</p>
+    <ComA />
+  </div>
 }
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const Div2 = () => <div data-spm="__fixtures___arrowFunction_Div2_div" />
+import ComA from './components/ComA'
+const Div2 = () => <div data-spm="_test___fixtures___arrowFunction_Div2_div" />
 const DivBody = () => {
-  return <div data-spm="__fixtures___arrowFunction_DivBody_div" />
+  return (
+    <div data-spm="_test___fixtures___arrowFunction_DivBody_div">
+      <p data-spm="_test___fixtures___arrowFunction_DivBody_p">hello</p>
+      <ComA data-spm="_test___fixtures___arrowFunction_DivBody_ComA" />
+    </div>
+  )
 }
 
 
@@ -37,17 +48,83 @@ const DivBody = () => {
 
 class ComA extends React.Component {
   render() {
-    return <div data-spm="__fixtures___classComponent_ComA_div">CCCCC</div>
+    return (
+      <div data-spm="_test___fixtures___classComponent_ComA_div">CCCCC</div>
+    )
   }
 }
 const DivBody = () => {
   return (
-    <div data-spm="__fixtures___classComponent_DivBody_div">
-      <ComA data-spm="__fixtures___classComponent_DivBody_ComA" />
-      <div data-spm="__fixtures___classComponent_DivBody_div_1">hello</div>
+    <div data-spm="_test___fixtures___classComponent_DivBody_div">
+      <ComA data-spm="_test___fixtures___classComponent_DivBody_ComA" />
+      <div data-spm="_test___fixtures___classComponent_DivBody_div_1">
+        hello
+      </div>
     </div>
   )
 }
+
+
+`;
+
+exports[`babel-plugin-react-auto-unique-id Component: Component 1`] = `
+
+class ComB extends React.Component {
+  render() {
+    return <div>
+      <p>BBB</p>
+    </div>
+  }
+}
+
+const ComA = () => {
+  return (
+    <div className="ComA">
+      <>
+      i'am A
+      </>
+      {[1,2,3].map(() => {
+        return <ComB />;
+      })}
+      {[1,2].map(() => (<div>1111</div>))}
+    </div>
+  );
+}
+
+export default ComA;
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+class ComB extends React.Component {
+  render() {
+    return (
+      <div data-spm="_test___fixtures___components_ComA_index_ComB_div">
+        <p data-spm="_test___fixtures___components_ComA_index_ComB_p">BBB</p>
+      </div>
+    )
+  }
+}
+const ComA = () => {
+  return (
+    <div
+      className="ComA"
+      data-spm="_test___fixtures___components_ComA_index_ComA_div"
+    >
+      <>i'am A</>
+      {[1, 2, 3].map(() => {
+        return (
+          <ComB data-spm="_test___fixtures___components_ComA_index_ComA_ComB" />
+        )
+      })}
+      {[1, 2].map(() => (
+        <div data-spm="_test___fixtures___components_ComA_index_ComA_div_1">
+          1111
+        </div>
+      ))}
+    </div>
+  )
+}
+export default ComA
 
 
 `;
@@ -71,14 +148,16 @@ function Nested() {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 function Div() {
-  return <div data-spm="__fixtures___functionComponent_Div_div" />
+  return <div data-spm="_test___fixtures___functionComponent_Div_div" />
 }
 function Nested() {
   return (
-    <div data-spm="__fixtures___functionComponent_Nested_div">
+    <div data-spm="_test___fixtures___functionComponent_Nested_div">
       hello
-      <A data-spm="__fixtures___functionComponent_Nested_A" />
-      <div data-spm="__fixtures___functionComponent_Nested_div_1">world</div>
+      <A data-spm="_test___fixtures___functionComponent_Nested_A" />
+      <div data-spm="_test___fixtures___functionComponent_Nested_div_1">
+        world
+      </div>
     </div>
   )
 }
@@ -105,17 +184,17 @@ function Siblings() {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 function Sibling() {
-  return <div data-spm="__fixtures___propertyExists_Sibling_div" />
+  return <div data-spm="_test___fixtures___propertyExists_Sibling_div" />
 }
 function Siblings() {
   return (
-    <div data-spm="__fixtures___propertyExists_Siblings_div">
+    <div data-spm="_test___fixtures___propertyExists_Siblings_div">
       hello
       <Sibling
         data-id="i-exist"
-        data-spm="__fixtures___propertyExists_Siblings_Sibling"
+        data-spm="_test___fixtures___propertyExists_Siblings_Sibling"
       />
-      <Sibling data-spm="__fixtures___propertyExists_Siblings_Sibling_1" />
+      <Sibling data-spm="_test___fixtures___propertyExists_Siblings_Sibling_1" />
     </div>
   )
 }
@@ -142,14 +221,14 @@ function Siblings() {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 function Sibling() {
-  return <div data-spm="__fixtures___sameSiblings_Sibling_div" />
+  return <div data-spm="_test___fixtures___sameSiblings_Sibling_div" />
 }
 function Siblings() {
   return (
-    <div data-spm="__fixtures___sameSiblings_Siblings_div">
+    <div data-spm="_test___fixtures___sameSiblings_Siblings_div">
       hello
-      <Sibling data-spm="__fixtures___sameSiblings_Siblings_Sibling" />
-      <Sibling data-spm="__fixtures___sameSiblings_Siblings_Sibling_1" />
+      <Sibling data-spm="_test___fixtures___sameSiblings_Siblings_Sibling" />
+      <Sibling data-spm="_test___fixtures___sameSiblings_Siblings_Sibling_1" />
     </div>
   )
 }

@@ -9,6 +9,10 @@ pluginTester({
   pluginName: 'babel-plugin-react-auto-unique-id',
   tests: [
     {
+      title: 'Component',
+      fixture: path.join(__dirname, '__fixtures__', './components/ComA/index.tsx'),
+    },
+    {
       title: 'Class Component',
       fixture: path.join(__dirname, '__fixtures__', 'classComponent.tsx'),
     },
